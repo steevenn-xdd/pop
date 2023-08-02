@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Recopilación de Información</title>
+</head>
+<body>
+  <h1>Hola, bienvenido(a) a la página</h1>
+  <p>Tipo de navegador: <span id="browserType"></span></p>
+  <p>Sistema operativo: <span id="osType"></span></p>
+  <p>Dirección IP: <span id="ipAddress"></span></p>
+
+  <button onclick="mostrarInformacion()">Clic aquí</button>
+
+  <script>
+    // Función para obtener la información y mostrarla
+    function mostrarInformacion() {
+      // Obtener el tipo de navegador
+      const browserType = navigator.userAgent;
+      document.getElementById('browserType').innerText = 'Tipo de navegador: ' + browserType;
+
+      // Obtener el sistema operativo
+      const osType = navigator.platform;
+      document.getElementById('osType').innerText = 'Sistema operativo: ' + osType;
+
+      // Obtener la dirección IP mediante ipify API
+      fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+          const ipAddress = data.ip;
+          document.getElementById('ipAddress').innerText = 'Dirección IP: ' + ipAddress;
+          console.log('Dirección IP:', ipAddress);
+        })
+        .catch(error => {
+          console.error('Error al obtener la IP:', error);
+          document.getElementById('ipAddress').innerText = 'No se pudo obtener la IP.';
+        });
+
+      // Mostrar la información en la consola
+      console.log('Tipo de navegador:', browserType);
+      console.log('Sistema operativo:', osType);
+    }
+  </script>
+</body>
+</html>
